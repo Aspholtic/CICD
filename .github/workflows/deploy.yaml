@@ -16,8 +16,8 @@ jobs:
               run: |
                   ls -la
 
-            - name: Install pnpm
-              uses: pnpm/action-setup@v4
+            - name: Install npm
+              uses: npm/action-setup@v4
               with:
                   run_install: false
 
@@ -28,7 +28,7 @@ jobs:
                   node-version: "24"
 
             - name: Install dependencies
-              run: pnpm install
+              run: npm install
 
             - name: Build Codebase
-              run: pnpm run build
+              run: npm run build
