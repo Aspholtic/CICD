@@ -1,34 +1,20 @@
-name: Deploy ON Push
+name: CI
 
 on:
-    push:
-        branches:
-            - main
+  push:
+  pull_request:
 
 jobs:
-    check:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Clone Codebase
-              uses: actions/checkout@v6
+  check:
+    runs-on: ubuntu-latest
 
-            - name: Check If File Exist
-              run: |
-                  ls -la
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Install npm
-              uses: npm/action-setup@v4
-              with:
-                  run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
-            # Install NodeJS
-            - name: Setup Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version: "24"
-
-            - name: Install dependencies
-              run: npm install
-
-            - name: Build Codebase
-              run: npm run build
+      - run: npm install
+      - run: npm run build
